@@ -117,6 +117,11 @@ class WP_Style_Engine_CSS_Rule {
 		$declarations_indent = $should_prettify ? $indent_count + 1 : 0;
 		$new_line            = $should_prettify ? "\n" : '';
 		$space               = $should_prettify ? ' ' : '';
+        
+		$styles = $this->declarations->get_declarations_string();
+		if ( empty( $styles ) ) {
+			return '';
+		}
 		return $rule_indent . $this->get_selector() . "{$space}{{$new_line}" . $this->declarations->get_declarations_string( $should_prettify, $declarations_indent ) . "{$new_line}{$rule_indent}}";
 	}
 }
