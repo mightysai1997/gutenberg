@@ -11,9 +11,8 @@ const transpiledPackageNames = glob( 'packages/*/src/index.{js,ts,tsx}' ).map(
 module.exports = {
 	rootDir: '../../',
 	moduleNameMapper: {
-		[ `@wordpress\\/(${ transpiledPackageNames.join(
-			'|'
-		) })$` ]: 'packages/$1/src',
+		[ `@wordpress\\/(${ transpiledPackageNames.join( '|' ) })$` ]:
+			'packages/$1/src',
 	},
 	preset: '@wordpress/jest-preset-default',
 	setupFiles: [
@@ -29,12 +28,15 @@ module.exports = {
 		'/packages/e2e-test-utils-playwright/src/test.ts',
 		'<rootDir>/.*/build/',
 		'<rootDir>/.*/build-module/',
+		'<rootDir>/.*/build-types/',
+		'<rootDir>/.+.d.ts$',
 		'<rootDir>/.+.native.js$',
 		'/packages/react-native-*',
 	],
 	transform: {
 		'^.+\\.[jt]sx?$': '<rootDir>/test/unit/scripts/babel-transformer.js',
 	},
+	transformIgnorePatterns: [ 'node_modules/(?!(is-plain-obj))' ],
 	snapshotSerializers: [
 		'enzyme-to-json/serializer',
 		'@emotion/jest/serializer',

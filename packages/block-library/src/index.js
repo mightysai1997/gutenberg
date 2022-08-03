@@ -73,7 +73,6 @@ import * as postAuthor from './post-author';
 import * as postAuthorName from './post-author-name';
 import * as postAuthorBiography from './post-author-biography';
 import * as postComment from './post-comment';
-import * as postComments from './post-comments';
 import * as postCommentsCount from './post-comments-count';
 import * as postCommentsForm from './post-comments-form';
 import * as postCommentsLink from './post-comments-link';
@@ -153,7 +152,7 @@ const getAllBlocks = () => [
 	buttons,
 	calendar,
 	categories,
-	window.wp && window.wp.oldEditor ? classic : null, // Only add the classic block in WP Context.
+	...( window.wp && window.wp.oldEditor ? [ classic ] : [] ), // Only add the classic block in WP Context.
 	code,
 	column,
 	columns,
@@ -228,7 +227,6 @@ const getAllBlocks = () => [
 	commentsPaginationNext,
 	commentsPaginationNumbers,
 	commentsPaginationPrevious,
-	postComments,
 	postCommentsForm,
 	tableOfContents,
 	homeLink,

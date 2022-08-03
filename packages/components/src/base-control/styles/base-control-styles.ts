@@ -7,12 +7,14 @@ import { css } from '@emotion/react';
 /**
  * Internal dependencies
  */
-import { font, COLORS } from '../../utils';
+import { font, COLORS, boxSizingReset } from '../../utils';
 import { space } from '../../ui/utils/space';
 
 export const Wrapper = styled.div`
 	font-family: ${ font( 'default.fontFamily' ) };
 	font-size: ${ font( 'default.fontSize' ) };
+
+	${ boxSizingReset }
 `;
 
 const deprecatedMarginField = ( { __nextHasNoMarginBottom = false } ) => {
@@ -39,6 +41,11 @@ const labelStyles = css`
 
 export const StyledLabel = styled.label`
 	${ labelStyles }
+	/**
+	 * Removes Chrome/Safari/Firefox user agent stylesheet padding from
+	 * StyledLabel when it is rendered as a legend.
+	 */
+	padding: 0;
 `;
 
 const deprecatedMarginHelp = ( { __nextHasNoMarginBottom = false } ) => {

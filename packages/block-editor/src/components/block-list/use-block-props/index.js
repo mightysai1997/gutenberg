@@ -12,10 +12,7 @@ import {
 	__unstableGetBlockProps as getBlockProps,
 	getBlockType,
 } from '@wordpress/blocks';
-import {
-	useMergeRefs,
-	__experimentalUseDisabled as useIsDisabled,
-} from '@wordpress/compose';
+import { useMergeRefs, useDisabled } from '@wordpress/compose';
 import { useSelect } from '@wordpress/data';
 import warning from '@wordpress/warning';
 
@@ -65,9 +62,12 @@ export function useBlockProps(
 	props = {},
 	{ __unstableIsHtml, __unstableIsDisabled = false } = {}
 ) {
-	const { clientId, className, wrapperProps = {}, isAligned } = useContext(
-		BlockListBlockContext
-	);
+	const {
+		clientId,
+		className,
+		wrapperProps = {},
+		isAligned,
+	} = useContext( BlockListBlockContext );
 	const {
 		index,
 		mode,
@@ -132,7 +132,7 @@ export function useBlockProps(
 			enableAnimation,
 			triggerAnimationOnChange: index,
 		} ),
-		useIsDisabled( { isDisabled: ! __unstableIsDisabled } ),
+		useDisabled( { isDisabled: ! __unstableIsDisabled } ),
 	] );
 
 	const blockEditContext = useBlockEditContext();

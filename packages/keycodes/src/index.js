@@ -144,6 +144,8 @@ export const SHIFT = 'shift';
  */
 export const ZERO = 48;
 
+export { isAppleOS };
+
 /**
  * Object that contains functions that return the available modifier
  * depending on platform.
@@ -314,7 +316,9 @@ function getEventModifiers( event ) {
 	] ).filter(
 		( key ) =>
 			event[
-				/** @type {'altKey' | 'ctrlKey' | 'metaKey' | 'shiftKey'} */ ( `${ key }Key` )
+				/** @type {'altKey' | 'ctrlKey' | 'metaKey' | 'shiftKey'} */ (
+					`${ key }Key`
+				)
 			]
 	);
 }

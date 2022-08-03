@@ -122,7 +122,8 @@ _Returns_
 
 ### getRectangleFromRange
 
-Get the rectangle of a given Range.
+Get the rectangle of a given Range. Returns `null` if no suitable rectangle
+can be found.
 
 _Parameters_
 
@@ -130,7 +131,7 @@ _Parameters_
 
 _Returns_
 
--   `DOMRect`: The rectangle.
+-   `DOMRect?`: The rectangle.
 
 ### getScrollContainer
 
@@ -211,8 +212,7 @@ _Returns_
 
 ### isNumberInput
 
-Check whether the given element is an input field of type number
-and has a valueAsNumber
+Check whether the given element is an input field of type number.
 
 _Parameters_
 
@@ -220,7 +220,7 @@ _Parameters_
 
 _Returns_
 
--   `node is HTMLInputElement`: True if the node is input and holds a number.
+-   `node is HTMLInputElement`: True if the node is number input.
 
 ### isPhrasingContent
 

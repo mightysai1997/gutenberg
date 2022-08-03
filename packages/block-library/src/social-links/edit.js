@@ -108,6 +108,7 @@ export function SocialLinksEdit( props ) {
 	// Fallback color values are used maintain selections in case switching
 	// themes and named colors in palette do not match.
 	const className = classNames( size, {
+		'has-visible-labels': showLabels,
 		'has-icon-color': iconColor.color || iconColorValue,
 		'has-icon-background-color':
 			iconBackgroundColor.color || iconBackgroundColorValue,
@@ -215,16 +216,17 @@ export function SocialLinksEdit( props ) {
 					__experimentalIsRenderedInSidebar
 					title={ __( 'Color' ) }
 					colorSettings={ colorSettings }
-				/>
-				{ ! logosOnly && (
-					<ContrastChecker
-						{ ...{
-							textColor: iconColorValue,
-							backgroundColor: iconBackgroundColorValue,
-						} }
-						isLargeText={ false }
-					/>
-				) }
+				>
+					{ ! logosOnly && (
+						<ContrastChecker
+							{ ...{
+								textColor: iconColorValue,
+								backgroundColor: iconBackgroundColorValue,
+							} }
+							isLargeText={ false }
+						/>
+					) }
+				</PanelColorSettings>
 			</InspectorControls>
 			<ul { ...innerBlocksProps } />
 		</Fragment>

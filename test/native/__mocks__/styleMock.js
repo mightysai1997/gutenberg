@@ -159,4 +159,13 @@ module.exports = {
 	'header-toolbar__container': {
 		height: 44,
 	},
+	'dropping-insertion-point': {
+		height: 3,
+	},
+	blockShortcodeContainer: {
+		padding: 12,
+	},
+	'wp-block-list-item__list-item--default': {
+		fontSize: 16,
+	},
 };
