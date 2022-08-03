@@ -41,6 +41,7 @@ if ( ! function_exists( 'gutenberg_register_webfonts_from_theme_json' ) ) {
 		}
 
 		$webfonts = array();
+		$handles  = array();
 
 		// Look for fontFamilies.
 		foreach ( $settings['typography']['fontFamilies'] as $font_families ) {
@@ -81,26 +82,21 @@ if ( ! function_exists( 'gutenberg_register_webfonts_from_theme_json' ) ) {
 						}
 					}
 
-					$webfonts[] = $font_face;
+					$font_family_handle = array_key_exists( 'fontFamily', $font_face )
+						? WP_Webfonts::get_font_slug( $font_face['fontFamily'] )
+						: $font_family['slug'];
+					$handles[] = $font_family_handle;
+					if ( ! array_key_exists( $font_family_handle, $webfonts ) ) {
+						$webfonts[ $font_family_handle ] = array();
+					}
+
+					$webfonts[ $font_family_handle ][] = $font_face;
 				}
 			}
 		}
 
-		$to_enqueue = array();
-
-		foreach ( $webfonts as $webfont ) {
-			$font_family_handle = sanitize_title( $webfont['font-family'] );
-
-			wp_register_web_font_family( $font_family_handle );
-
-			$variation_handle = sanitize_title( implode( ' ', array( $webfont['font-weight'], $webfont['font-style'] ) ) );
-			wp_register_web_font_variation( $font_family_handle, $variation_handle, $webfont );
-			$to_enqueue[] = $font_family_handle;
-		}
-
-		foreach ( $to_enqueue as $font_family ) {
-			wp_webfonts()->enqueue( $font_family );
-		}
+		wp_register_webfonts( $webfonts );
+		wp_enqueue_webfont( $handles );
 	}
 }
 
@@ -112,7 +108,7 @@ if ( ! function_exists( 'gutenberg_add_registered_webfonts_to_theme_json' ) ) {
 	 * @return array The global styles with missing fonts data.
 	 */
 	function gutenberg_add_registered_webfonts_to_theme_json( $data ) {
-		$font_families_registered = wp_webfonts()->get_all_webfonts();
+		$font_families_registered = wp_webfonts()->get_registered();
 		$font_families_from_theme = array();
 		if ( ! empty( $data['settings'] ) && ! empty( $data['settings']['typography'] ) && ! empty( $data['settings']['typography']['fontFamilies'] ) ) {
 			$font_families_from_theme = $data['settings']['typography']['fontFamilies'];
